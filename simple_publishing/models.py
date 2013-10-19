@@ -1,4 +1,5 @@
 import re
+import markdown
 
 
 from django.db import models, transaction, IntegrityError
@@ -16,6 +17,21 @@ STATUS_CHOICES = (
   ('w', _('Withdrawn')),
 )
 
+PAGE_TYPES = (
+    {
+      'name': 'detail',
+      'verbose_name': _('detail view'),
+      'template': 'simple_publishing/detail.html',
+    },
+    {
+      'name': 'list',
+      'verbose_name': _('list view'),
+      'template': 'simple_publishing/list.html',
+    },
+)
+
+PAGE_TYPE_CHOICES = ((pt['name'], pt['verbose_name']) for pt in PAGE_TYPES)
+
 
 class Page(models.Model):
     parent = models.ForeignKey('self', related_name='children',
@@ -25,12 +41,13 @@ class Page(models.Model):
     url = models.CharField(_('url'), max_length=2048, unique=True)
     content = models.TextField(_('content'), blank=True)
     summary = models.TextField(_('summary'), blank=True)
-    html = models.TextField(_('html'), blank=True)
     author = models.ForeignKey(User, verbose_name=_('author'), null=True)
     status = models.CharField(_('status'), max_length=1, choices=STATUS_CHOICES, default='d')
-    publish_date = models.DateTimeField(_('publish date'), null=True)
+    publish_date = models.DateTimeField(_('publish date'), blank=True, null=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
+    type = models.CharField(_('type'), max_length=255,
+        choices=PAGE_TYPE_CHOICES, default='detail')
 
     objects = PageManager()
 
@@ -40,6 +57,18 @@ class Page(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_template_name(self):
+        for pt in PAGE_TYPES:
+            if pt['name'] == self.type:
+                return pt['template']
+        return PAGE_TYPES[0]['template']
+
+    def get_html_content(self):
+        return markdown.markdown(self.content)
+
+    def is_published(self):
+        return self.status == 'p' and self.publish_date < now()
 
     def save(self, *args, **kwargs):
         self.set_url()
