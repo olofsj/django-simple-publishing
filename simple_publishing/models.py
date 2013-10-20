@@ -41,7 +41,7 @@ class Page(models.Model):
     url = models.CharField(_('url'), max_length=2048, unique=True)
     content = models.TextField(_('content'), blank=True)
     summary = models.TextField(_('summary'), blank=True)
-    author = models.ForeignKey(User, verbose_name=_('author'), null=True)
+    author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
     status = models.CharField(_('status'), max_length=1, choices=STATUS_CHOICES, default='d')
     publish_date = models.DateTimeField(_('publish date'), blank=True, null=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
