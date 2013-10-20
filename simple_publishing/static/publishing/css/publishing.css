@@ -222,7 +222,7 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 .fade{opacity:0;-webkit-transition:opacity .15s linear;transition:opacity .15s linear}.fade.in{opacity:1}
 .collapse{display:none}.collapse.in{display:block}
 .collapsing{position:relative;height:0;overflow:hidden;-webkit-transition:height .35s ease;transition:height .35s ease}
-@font-face{font-family:'FontAwesome';src:url('/static/font/fontawesome-webfont.eot?v=3.2.1');src:url('/static/font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),url('/static/font/fontawesome-webfont.woff?v=3.2.1') format('woff'),url('/static/font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),url('/static/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');font-weight:normal;font-style:normal}[class^="icon-"],[class*=" icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em}
+@font-face{font-family:'FontAwesome';src:url('//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.eot?v=3.2.1');src:url('//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),url('//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.woff?v=3.2.1') format('woff'),url('//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),url('//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');font-weight:normal;font-style:normal}[class^="icon-"],[class*=" icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em}
 [class^="icon-"]:before,[class*=" icon-"]:before{text-decoration:inherit;display:inline-block;speak:none}
 .icon-large:before{vertical-align:-10%;font-size:1.3333333333333333em}
 a [class^="icon-"],a [class*=" icon-"]{display:inline}
@@ -1068,7 +1068,7 @@ body{text-rendering:optimizeLegibility}
 .navbar-default .navbar-nav>li>a{border-right:1px solid #fff !important}
 .navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus{-webkit-box-shadow:inset 0 3px 8px rgba(0,0,0,0.125);box-shadow:inset 0 3px 8px rgba(0,0,0,0.125)}
 .navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus{-webkit-box-shadow:inset 0 3px 8px rgba(0,0,0,0.125);box-shadow:inset 0 3px 8px rgba(0,0,0,0.125)}
-.area-heading{text-transform:uppercase;color:#999;font-size:14px;line-height:1.428571429;background:#fff;margin:0;padding:10px 15px;letter-spacing:1px;position:absolute;top:0;left:0;right:0}
+.area-heading{text-transform:uppercase;color:#999;font-size:14px;line-height:1.428571429;background:#fff;margin:0;padding:10px 15px;letter-spacing:1px;position:absolute;top:0;left:0;right:0}.area-heading a{color:inherit}.area-heading a:hover{color:#333;text-decoration:none}
 .area-content{position:absolute;overflow:scroll;top:40px;bottom:0;right:0;left:0}
 .sidebar{position:absolute;top:40px;left:0;width:25%;bottom:0}.sidebar .area-heading{border-right:1px solid #ddd}
 .sidebar .list-group{margin:0;height:100%;border-right:1px solid #ddd}

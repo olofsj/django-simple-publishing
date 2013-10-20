@@ -50190,20 +50190,21 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 });Ember.TEMPLATES['pages/detail'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, hashTypes, hashContexts, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1, hashContexts, hashTypes, options;
+  var buffer = '', stack1, stack2, hashContexts, hashTypes, options;
   data.buffer.push("\n  <div class=\"main-header\">\n    <h4 class=\"area-heading\">Title</h4>\n    <div class=\"area-content\">\n      ");
-  hashContexts = {'value': depth0,'classNames': depth0};
-  hashTypes = {'value': "ID",'classNames': "STRING"};
+  hashContexts = {'value': depth0,'placeholder': depth0,'classNames': depth0};
+  hashTypes = {'value': "ID",'placeholder': "STRING",'classNames': "STRING"};
   options = {hash:{
     'value': ("page.title"),
+    'placeholder': ("A nice title goes here..."),
     'classNames': ("form-control")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input || depth0.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-left\">\n    <h4 class=\"area-heading\">Edit</h4>\n    <div class=\"area-content\">\n      ");
+  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-left\">\n    <h4 class=\"area-heading\">\n      Edit\n      <a href=\"http://daringfireball.net/projects/markdown/syntax\" target=\"_blank\" class=\"pull-right\"><i class=\"icon-question-sign\"></i></a>\n    </h4>\n    <div class=\"area-content\">\n      ");
   hashContexts = {'value': depth0,'placeholder': depth0,'classNames': depth0};
   hashTypes = {'value': "ID",'placeholder': "STRING",'classNames': "STRING"};
   options = {hash:{
@@ -50212,7 +50213,12 @@ function program1(depth0,data) {
     'classNames': ("form-control")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.textarea || depth0.textarea),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-right\">\n    <h4 class=\"area-heading\">Preview</h4>\n    <div class=\"area-content\">\n      <div class=\"preview\">\n        ");
+  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-right\">\n    <h4 class=\"area-heading\">\n      Preview\n      ");
+  hashTypes = {};
+  hashContexts = {};
+  stack2 = helpers['if'].call(depth0, "page.url", {hash:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\n    </h4>\n    <div class=\"area-content\">\n      <div class=\"preview\">\n        ");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
@@ -50228,6 +50234,18 @@ function program1(depth0,data) {
     'disabled': ("page.isClean")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(">Save</button>\n  </div>\n");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '', hashContexts, hashTypes;
+  data.buffer.push("\n      <a ");
+  hashContexts = {'href': depth0};
+  hashTypes = {'href': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'href': ("page.url")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" target=\"_blank\" class=\"pull-right\"><i class=\"icon-external-link-sign\"></i></a>\n      ");
   return buffer;
   }
 

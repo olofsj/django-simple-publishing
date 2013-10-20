@@ -2,17 +2,25 @@
   <div class="main-header">
     <h4 class="area-heading">Title</h4>
     <div class="area-content">
-      {{input value=page.title classNames="form-control"}}
+      {{input value=page.title placeholder="A nice title goes here..." classNames="form-control"}}
     </div>
   </div>
   <div class="main-left">
-    <h4 class="area-heading">Edit</h4>
+    <h4 class="area-heading">
+      Edit
+      <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" class="pull-right"><i class="icon-question-sign"></i></a>
+    </h4>
     <div class="area-content">
       {{textarea value=page.content placeholder="Here's where you write something..." classNames="form-control"}}
     </div>
   </div>
   <div class="main-right">
-    <h4 class="area-heading">Preview</h4>
+    <h4 class="area-heading">
+      Preview
+      {{#if page.url}}
+      <a {{bindAttr href="page.url"}} target="_blank" class="pull-right"><i class="icon-external-link-sign"></i></a>
+      {{/if}}
+    </h4>
     <div class="area-content">
       <div class="preview">
         {{markdown page.content}}
