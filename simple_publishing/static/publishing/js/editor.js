@@ -50070,6 +50070,10 @@ App.Page = DS.Model.extend({
   author: DS.belongsTo('user'),
   parent: DS.belongsTo('page'),
 
+  isClean: function() {
+    return !this.get('isDirty');
+  }.property('isDirty'),
+
   isPublished: function() {
     var status = this.get('status');
     var publish_date = this.get('publish_date');
@@ -50191,12 +50195,21 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', stack1, hashContexts, hashTypes, options;
-  data.buffer.push("\n  <div class=\"main-left\">\n    <h4 class=\"area-heading\">Content</h4>\n    <div class=\"area-content\">\n      ");
+  data.buffer.push("\n  <div class=\"main-header\">\n    <h4 class=\"area-heading\">Title</h4>\n    <div class=\"area-content\">\n      ");
   hashContexts = {'value': depth0,'classNames': depth0};
   hashTypes = {'value': "ID",'classNames': "STRING"};
   options = {hash:{
+    'value': ("page.title"),
+    'classNames': ("form-control")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers.input || depth0.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-left\">\n    <h4 class=\"area-heading\">Edit</h4>\n    <div class=\"area-content\">\n      ");
+  hashContexts = {'value': depth0,'placeholder': depth0,'classNames': depth0};
+  hashTypes = {'value': "ID",'placeholder': "STRING",'classNames': "STRING"};
+  options = {hash:{
     'value': ("page.content"),
-    'classNames': ("form-control content-editor")
+    'placeholder': ("Here's where you write something..."),
+    'classNames': ("form-control")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.textarea || depth0.textarea),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
   data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-right\">\n    <h4 class=\"area-heading\">Preview</h4>\n    <div class=\"area-content\">\n      <div class=\"preview\">\n        ");
@@ -50204,10 +50217,16 @@ function program1(depth0,data) {
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.markdown || depth0.markdown),stack1 ? stack1.call(depth0, "page.content", options) : helperMissing.call(depth0, "markdown", "page.content", options))));
-  data.buffer.push("\n      </div>\n    </div>\n  </div>\n  <div class=\"main-footer\">\n    <button class=\"btn btn-success pull-right\" ");
+  data.buffer.push("\n      </div>\n    </div>\n  </div>\n  <div class=\"main-footer\">\n    <button class=\"btn btn-success btn-sm pull-right\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" ");
+  hashContexts = {'disabled': depth0};
+  hashTypes = {'disabled': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'disabled': ("page.isClean")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(">Save</button>\n  </div>\n");
   return buffer;
   }
@@ -50248,17 +50267,27 @@ function program1(depth0,data) {
   }
 function program2(depth0,data) {
   
-  var buffer = '', hashTypes, hashContexts;
+  var buffer = '', stack1, hashTypes, hashContexts;
   data.buffer.push("\n        <h4 class=\"list-group-item-heading\">");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</h4>\n        <p class=\"list-group-item-text\">");
+  data.buffer.push("</h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.statusDisplay", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</p>\n      ");
+  data.buffer.push("\n          ");
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers['if'].call(depth0, "page.isDirty", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        </p>\n      ");
   return buffer;
+  }
+function program3(depth0,data) {
+  
+  
+  data.buffer.push("<span class=\"label label-danger\">Not Saved</span>");
   }
 
   data.buffer.push("<h4 class=\"area-heading\">Pages</h4>\n<div class=\"area-content\">\n  <div class=\"list-group\">\n    ");

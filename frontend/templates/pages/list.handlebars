@@ -4,7 +4,10 @@
     {{#each page in controller}}
       {{#linkTo "page" page classNames="list-group-item"}}
         <h4 class="list-group-item-heading">{{page.title}}</h4>
-        <p class="list-group-item-text">{{page.statusDisplay}}</p>
+        <p class="list-group-item-text text-muted">
+          {{page.statusDisplay}}
+          {{#if page.isDirty }}<span class="label label-danger">Not Saved</span>{{/if}}
+        </p>
       {{/linkTo}}
     {{/each}}
   </div>

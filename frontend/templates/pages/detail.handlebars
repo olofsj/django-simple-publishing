@@ -1,8 +1,14 @@
 {{#with content as page}}
-  <div class="main-left">
-    <h4 class="area-heading">Content</h4>
+  <div class="main-header">
+    <h4 class="area-heading">Title</h4>
     <div class="area-content">
-      {{textarea value=page.content classNames="form-control content-editor"}}
+      {{input value=page.title classNames="form-control"}}
+    </div>
+  </div>
+  <div class="main-left">
+    <h4 class="area-heading">Edit</h4>
+    <div class="area-content">
+      {{textarea value=page.content placeholder="Here's where you write something..." classNames="form-control"}}
     </div>
   </div>
   <div class="main-right">
@@ -14,6 +20,6 @@
     </div>
   </div>
   <div class="main-footer">
-    <button class="btn btn-success pull-right" {{action 'save'}}>Save</button>
+    <button class="btn btn-success btn-sm pull-right" {{action 'save'}} {{bindAttr disabled="page.isClean"}}>Save</button>
   </div>
 {{/with}}

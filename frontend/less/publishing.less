@@ -56,15 +56,30 @@ body {
   left: 0;
   width: 25%;
   bottom: 0;
-  border-right: 1px solid @list-group-border;
 
+  .area-heading {
+    border-right: 1px solid @list-group-border;
+  }
   .list-group {
-    margin: 0 -1px 0 0;
+    margin: 0;
     height: 100%;
     border-right: 1px solid @list-group-border;
   }
   .list-group-item {
     margin-right: -1px;
+
+    &.active:before {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      display: block;
+      margin-right: -1px;
+      margin-top: -12px;
+      border-top: 12px solid transparent;
+      border-right: 12px solid @body-bg;
+      border-bottom: 12px solid transparent;
+      content: '';
+    }
   }
 }
 .main {
@@ -79,9 +94,9 @@ body {
   }
   .main-left, .main-right {
     position: absolute;
-    top: 0;
+    top: 41px;
     width: 50%;
-    bottom: 50px;
+    bottom: 41px;
   }
   .main-left {
     left: 0;
@@ -90,25 +105,39 @@ body {
   .main-right {
     right: 0;
   }
-  .main-footer {
+  .main-header, .main-footer {
     position: absolute;
     left: 0;
     right: 0;
+    height: 41px;
+  }
+  .main-header {
+    top: 0;
+    border-bottom: 1px solid @list-group-border;
+    .area-content {
+      top: 0;
+      left: 60px;
+      padding: 3px 0;
+    }
+  }
+  .main-footer {
     bottom: 0;
-    height: 50px;
-    padding: 8px 15px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid @list-group-border;
+    padding: 5px 15px;
   }
 }
-textarea.content-editor {
+input.form-control,
+textarea.form-control {
   resize: none;
-  width: 100%;
-  height: 100%;
   border: none;
-  padding: 0 15px;
   .box-shadow(none);
 
   &:focus {
     .box-shadow(none);
   }
+}
+textarea.form-control {
+  padding: 0 15px;
+  width: 100%;
+  height: 100%;
 }

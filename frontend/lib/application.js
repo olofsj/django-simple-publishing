@@ -65,6 +65,10 @@ App.Page = DS.Model.extend({
   author: DS.belongsTo('user'),
   parent: DS.belongsTo('page'),
 
+  isClean: function() {
+    return !this.get('isDirty');
+  }.property('isDirty'),
+
   isPublished: function() {
     var status = this.get('status');
     var publish_date = this.get('publish_date');
