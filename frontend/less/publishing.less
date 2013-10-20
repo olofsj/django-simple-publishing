@@ -1,0 +1,114 @@
+body {
+  text-rendering: optimizeLegibility;
+}
+.navbar .navbar-brand {
+  font-weight: @headings-font-weight;
+  font-family: @headings-font-family;
+  color: @text-color;
+}
+.navbar {
+  .box-shadow(0 1px 4px rgba(0,0,0,.065));
+}
+.navbar-default .navbar-nav > li > a {
+  border-right: 1px solid @navbar-default-bg !important;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  .box-shadow(inset 0 3px 8px rgba(0,0,0,.125));
+}
+.navbar-default .navbar-nav {
+  > .open > a {
+    &,
+    &:hover,
+    &:focus {
+      .box-shadow(inset 0 3px 8px rgba(0,0,0,.125));
+    }
+  }
+}
+
+.area-heading {
+  text-transform: uppercase;
+  color: @gray-light;
+  font-size: @font-size-base;
+  line-height: @line-height-base;
+  background: @body-bg;
+  margin: 0;
+  padding: 10px 15px;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.area-content {
+  position: absolute;
+  overflow: scroll;
+  top: 40px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.sidebar {
+  position: absolute;
+  top: @navbar-height;
+  left: 0;
+  width: 25%;
+  bottom: 0;
+  border-right: 1px solid @list-group-border;
+
+  .list-group {
+    margin: 0 -1px 0 0;
+    height: 100%;
+    border-right: 1px solid @list-group-border;
+  }
+  .list-group-item {
+    margin-right: -1px;
+  }
+}
+.main {
+  position: absolute;
+  top: @navbar-height;
+  left: 25%;
+  right: 0;
+  bottom: 0;
+
+  .preview {
+    padding: 0 15px;
+  }
+  .main-left, .main-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    bottom: 50px;
+  }
+  .main-left {
+    left: 0;
+    border-right: 1px solid @list-group-border;
+  }
+  .main-right {
+    right: 0;
+  }
+  .main-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    padding: 8px 15px;
+    border-top: 1px solid #ccc;
+  }
+}
+textarea.content-editor {
+  resize: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0 15px;
+  .box-shadow(none);
+
+  &:focus {
+    .box-shadow(none);
+  }
+}

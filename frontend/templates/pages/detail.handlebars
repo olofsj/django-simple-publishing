@@ -1,0 +1,19 @@
+{{#with content as page}}
+  <div class="main-left">
+    <h4 class="area-heading">Content</h4>
+    <div class="area-content">
+      {{textarea value=page.content classNames="form-control content-editor"}}
+    </div>
+  </div>
+  <div class="main-right">
+    <h4 class="area-heading">Preview</h4>
+    <div class="area-content">
+      <div class="preview">
+        {{markdown page.content}}
+      </div>
+    </div>
+  </div>
+  <div class="main-footer">
+    <button class="btn btn-success pull-right" {{action 'save'}}>Save</button>
+  </div>
+{{/with}}
