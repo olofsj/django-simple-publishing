@@ -26,6 +26,25 @@ Ember.Handlebars.helper('markdown', function(value, options) {
   }
 });
 
+// Helper function for creating slugs
+App.slugify = function(str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
+
+  // remove accents, swap ñ for n, etc
+  var from = "åãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+  var to   = "aaaaaaeeeeeiiiiooooouuuunc------";
+  for (var i=0, l=from.length ; i<l ; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  }
+
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-'); // collapse dashes
+
+  return str;
+};
+
 // Ember-data store using the Django Tastypie adapter
 App.ApplicationAdapter = DS.DjangoRESTAdapter.extend({
   namespace: 'publishing/api'
@@ -64,6 +83,16 @@ App.Page = DS.Model.extend({
   modified: DS.attr('isodate'),
   author: DS.belongsTo('user'),
   parent: DS.belongsTo('page'),
+
+  titleChanged: function() {
+    var status = this.get('status');
+    var id = this.get('id');
+
+    // Auto-update the slug for drafts
+    if (!id || status == 'd') {
+      this.set('slug', App.slugify(this.get('title')));
+    }
+  }.observes('title'),
 
   isClean: function() {
     return !this.get('isDirty');
@@ -118,6 +147,11 @@ App.PagesRoute = Ember.Route.extend({
       outlet: 'sidebar',
       controller: this.controller
     });
+  },
+  actions: {
+    add: function() {
+      this.get('store').createRecord('page', {status: 'd', content: '', summary: ''});
+    }
   }
 });
 

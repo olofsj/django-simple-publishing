@@ -1,12 +1,17 @@
-<h4 class="area-heading">Pages</h4>
+<h4 class="area-heading">
+  Pages
+  <a class="pull-right" {{action 'add'}}><i class="icon-plus-sign"></i></a>
+</h4>
 <div class="area-content">
   <div class="list-group">
     {{#each page in controller}}
       {{#linkTo "page" page classNames="list-group-item"}}
-        <h4 class="list-group-item-heading">{{page.title}}</h4>
+        <h4 class="list-group-item-heading">
+          {{#if page.title}}{{page.title}}{{else}}New Page{{/if}}
+        </h4>
         <p class="list-group-item-text text-muted">
           {{page.statusDisplay}}
-          {{#if page.isDirty }}<span class="label label-danger">Not Saved</span>{{/if}}
+          {{#if page.isDirty }}<span class="label label-danger pull-right">Not Saved</span>{{/if}}
         </p>
       {{/linkTo}}
     {{/each}}

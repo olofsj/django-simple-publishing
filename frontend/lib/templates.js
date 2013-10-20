@@ -121,29 +121,48 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n        <h4 class=\"list-group-item-heading\">");
+  data.buffer.push("\n        <h4 class=\"list-group-item-heading\">\n          ");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
+  stack1 = helpers['if'].call(depth0, "page.title", {hash:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        </h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.statusDisplay", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n          ");
   hashTypes = {};
   hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "page.isDirty", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack1 = helpers['if'].call(depth0, "page.isDirty", {hash:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        </p>\n      ");
   return buffer;
   }
 function program3(depth0,data) {
   
-  
-  data.buffer.push("<span class=\"label label-danger\">Not Saved</span>");
+  var hashTypes, hashContexts;
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   }
 
-  data.buffer.push("<h4 class=\"area-heading\">Pages</h4>\n<div class=\"area-content\">\n  <div class=\"list-group\">\n    ");
+function program5(depth0,data) {
+  
+  
+  data.buffer.push("New Page");
+  }
+
+function program7(depth0,data) {
+  
+  
+  data.buffer.push("<span class=\"label label-danger pull-right\">Not Saved</span>");
+  }
+
+  data.buffer.push("<h4 class=\"area-heading\">\n  Pages\n  <a class=\"pull-right\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "add", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("><i class=\"icon-plus-sign\"></i></a>\n</h4>\n<div class=\"area-content\">\n  <div class=\"list-group\">\n    ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "page", "in", "controller", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});

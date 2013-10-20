@@ -38,7 +38,7 @@ class Page(models.Model):
         verbose_name=_('parent'), null=True, blank=True)
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), max_length=50)
-    url = models.CharField(_('url'), max_length=2048, unique=True)
+    url = models.CharField(_('url'), max_length=2048, unique=True, blank=True)
     content = models.TextField(_('content'), blank=True)
     summary = models.TextField(_('summary'), blank=True)
     author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)

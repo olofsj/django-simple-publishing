@@ -50031,6 +50031,25 @@ Ember.Handlebars.helper('markdown', function(value, options) {
   }
 });
 
+// Helper function for creating slugs
+App.slugify = function(str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
+
+  // remove accents, swap ñ for n, etc
+  var from = "åãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+  var to   = "aaaaaaeeeeeiiiiooooouuuunc------";
+  for (var i=0, l=from.length ; i<l ; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  }
+
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-'); // collapse dashes
+
+  return str;
+};
+
 // Ember-data store using the Django Tastypie adapter
 App.ApplicationAdapter = DS.DjangoRESTAdapter.extend({
   namespace: 'publishing/api'
@@ -50069,6 +50088,16 @@ App.Page = DS.Model.extend({
   modified: DS.attr('isodate'),
   author: DS.belongsTo('user'),
   parent: DS.belongsTo('page'),
+
+  titleChanged: function() {
+    var status = this.get('status');
+    var id = this.get('id');
+
+    // Auto-update the slug for drafts
+    if (!id || status == 'd') {
+      this.set('slug', App.slugify(this.get('title')));
+    }
+  }.observes('title'),
 
   isClean: function() {
     return !this.get('isDirty');
@@ -50123,6 +50152,11 @@ App.PagesRoute = Ember.Route.extend({
       outlet: 'sidebar',
       controller: this.controller
     });
+  },
+  actions: {
+    add: function() {
+      this.get('store').createRecord('page', {status: 'd', content: '', summary: ''});
+    }
   }
 });
 
@@ -50286,29 +50320,48 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = '', stack1, hashTypes, hashContexts;
-  data.buffer.push("\n        <h4 class=\"list-group-item-heading\">");
+  data.buffer.push("\n        <h4 class=\"list-group-item-heading\">\n          ");
   hashTypes = {};
   hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
+  stack1 = helpers['if'].call(depth0, "page.title", {hash:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        </h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.statusDisplay", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n          ");
   hashTypes = {};
   hashContexts = {};
-  stack1 = helpers['if'].call(depth0, "page.isDirty", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  stack1 = helpers['if'].call(depth0, "page.isDirty", {hash:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        </p>\n      ");
   return buffer;
   }
 function program3(depth0,data) {
   
-  
-  data.buffer.push("<span class=\"label label-danger\">Not Saved</span>");
+  var hashTypes, hashContexts;
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   }
 
-  data.buffer.push("<h4 class=\"area-heading\">Pages</h4>\n<div class=\"area-content\">\n  <div class=\"list-group\">\n    ");
+function program5(depth0,data) {
+  
+  
+  data.buffer.push("New Page");
+  }
+
+function program7(depth0,data) {
+  
+  
+  data.buffer.push("<span class=\"label label-danger pull-right\">Not Saved</span>");
+  }
+
+  data.buffer.push("<h4 class=\"area-heading\">\n  Pages\n  <a class=\"pull-right\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "add", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("><i class=\"icon-plus-sign\"></i></a>\n</h4>\n<div class=\"area-content\">\n  <div class=\"list-group\">\n    ");
   hashTypes = {};
   hashContexts = {};
   stack1 = helpers.each.call(depth0, "page", "in", "controller", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
