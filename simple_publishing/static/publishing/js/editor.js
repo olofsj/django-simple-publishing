@@ -50111,6 +50111,13 @@ App.Page = DS.Model.extend({
     return status == 'p' && publish_date < now;
   }.property('status', 'publish_date', 'currenttime'),
 
+  dontDelete: function() {
+    // Stop published and saved pages from being deleted
+    var id = this.get('id');
+    var status = this.get('status');
+    return (status == 'p' && !!id);
+  }.property('status', 'id'),
+
   statusDisplay: function() {
     var status = this.get('status');
     var publish_date = this.get('publish_date');
@@ -50292,6 +50299,12 @@ function program1(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "remove", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" ");
+  hashContexts = {'disabled': depth0};
+  hashTypes = {'disabled': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'disabled': ("page.dontDelete")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(">Delete</button>\n    <button class=\"btn btn-default btn-sm\" ");
   hashTypes = {};
   hashContexts = {};
