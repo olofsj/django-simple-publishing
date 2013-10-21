@@ -28,6 +28,8 @@
     </div>
   </div>
   <div class="main-footer">
+    <button class="btn btn-danger btn-sm" {{action 'remove'}}>Delete</button>
+    <button class="btn btn-default btn-sm" {{action 'revert'}} {{bindAttr disabled="page.isClean"}}>Revert Changes</button>
     <button class="btn btn-success btn-sm pull-right" {{action 'save'}} {{bindAttr disabled="page.isClean"}}>Save</button>
   </div>
 {{/with}}

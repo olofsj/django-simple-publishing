@@ -154,7 +154,10 @@ App.PagesRoute = Ember.Route.extend({
   actions: {
     add: function() {
       var parent = this.controllerFor('pages').get('parent');
-      this.get('store').createRecord('page', {parent: parent, status: 'd', content: '', summary: ''});
+      var page = this.get('store').createRecord('page', {
+        parent: parent, status: 'd', content: '', summary: ''
+      });
+      this.transitionTo('page', page);
     }
   }
 });
@@ -180,6 +183,9 @@ App.ParentRoute = Ember.Route.extend({
 });
 
 App.PageRoute = Ember.Route.extend({
+  serialize: function(model) {
+    return { parent_id: model.get('parent.id'), page_id: model.get('id') };
+  },
   setupController: function(controller, model) {
     controller.set('model', model);
     this.controllerFor('pages').set('currentPage', model);
@@ -192,10 +198,30 @@ App.PageRoute = Ember.Route.extend({
     });
   },
   actions: {
+    remove: function() {
+      var page = this.modelFor('page');
+      if (!!page) {
+        var parent = page.get('parent');
+        page.deleteRecord();
+        if (page.get('id')) {
+          page.save();
+        }
+        this.transitionTo('parent', parent);
+      }
+    },
+    revert: function() {
+      var page = this.modelFor('page');
+      if (!!page && page.get('isDirty')) {
+        page.rollback();
+      }
+    },
     save: function() {
       var page = this.modelFor('page');
       if (!!page && page.get('isDirty')) {
-        page.save();
+        var route = this;
+        page.save().then(function(result) {
+          route.transitionTo('page', result);
+        });
       }
     }
   }

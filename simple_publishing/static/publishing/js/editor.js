@@ -50159,7 +50159,10 @@ App.PagesRoute = Ember.Route.extend({
   actions: {
     add: function() {
       var parent = this.controllerFor('pages').get('parent');
-      this.get('store').createRecord('page', {parent: parent, status: 'd', content: '', summary: ''});
+      var page = this.get('store').createRecord('page', {
+        parent: parent, status: 'd', content: '', summary: ''
+      });
+      this.transitionTo('page', page);
     }
   }
 });
@@ -50185,6 +50188,9 @@ App.ParentRoute = Ember.Route.extend({
 });
 
 App.PageRoute = Ember.Route.extend({
+  serialize: function(model) {
+    return { parent_id: model.get('parent.id'), page_id: model.get('id') };
+  },
   setupController: function(controller, model) {
     controller.set('model', model);
     this.controllerFor('pages').set('currentPage', model);
@@ -50197,10 +50203,30 @@ App.PageRoute = Ember.Route.extend({
     });
   },
   actions: {
+    remove: function() {
+      var page = this.modelFor('page');
+      if (!!page) {
+        var parent = page.get('parent');
+        page.deleteRecord();
+        if (page.get('id')) {
+          page.save();
+        }
+        this.transitionTo('parent', parent);
+      }
+    },
+    revert: function() {
+      var page = this.modelFor('page');
+      if (!!page && page.get('isDirty')) {
+        page.rollback();
+      }
+    },
     save: function() {
       var page = this.modelFor('page');
       if (!!page && page.get('isDirty')) {
-        page.save();
+        var route = this;
+        page.save().then(function(result) {
+          route.transitionTo('page', result);
+        });
       }
     }
   }
@@ -50262,7 +50288,21 @@ function program1(depth0,data) {
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.markdown || depth0.markdown),stack1 ? stack1.call(depth0, "page.content", options) : helperMissing.call(depth0, "markdown", "page.content", options))));
-  data.buffer.push("\n      </div>\n    </div>\n  </div>\n  <div class=\"main-footer\">\n    <button class=\"btn btn-success btn-sm pull-right\" ");
+  data.buffer.push("\n      </div>\n    </div>\n  </div>\n  <div class=\"main-footer\">\n    <button class=\"btn btn-danger btn-sm\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "remove", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">Delete</button>\n    <button class=\"btn btn-default btn-sm\" ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "revert", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" ");
+  hashContexts = {'disabled': depth0};
+  hashTypes = {'disabled': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'disabled': ("page.isClean")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">Revert Changes</button>\n    <button class=\"btn btn-success btn-sm pull-right\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -50390,8 +50430,8 @@ function program12(depth0,data) {
   hashTypes = {'classNames': "STRING"};
   options = {hash:{
     'classNames': ("list-group-item")
-  },inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0,depth0,depth0],types:["STRING","ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "page", "parent", "page", options) : helperMissing.call(depth0, "linkTo", "page", "parent", "page", options));
+  },inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "page", "page", options) : helperMissing.call(depth0, "linkTo", "page", "page", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n    ");
   return buffer;
