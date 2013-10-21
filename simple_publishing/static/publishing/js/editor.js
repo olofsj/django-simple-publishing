@@ -50116,15 +50116,15 @@ App.Page = DS.Model.extend({
     var publish_date = this.get('publish_date');
     var now = new Date();
     if (status == 'd') {
-      return 'Draft';
+      return new Ember.Handlebars.SafeString('<span class="text-warning">Draft</span>');
     } else if (status == 'p') {
       if (publish_date < now) {
-        return 'Published ' + moment(publish_date).fromNow();
+        return 'Published ' + moment(publish_date).calendar();
       } else {
-        return 'Scheduled for ' + moment(publish_date).format('MMMM Do');
+        return 'Scheduled for ' + moment(publish_date).calendar();
       }
     } else {
-      return 'Withdrawn';
+      return new Ember.Handlebars.SafeString('<span class="text-warning">Withdrawn</span>');
     }
 
   }.property('isPublished')
