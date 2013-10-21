@@ -82,7 +82,8 @@ App.Page = DS.Model.extend({
   created: DS.attr('isodate'),
   modified: DS.attr('isodate'),
   author: DS.belongsTo('user'),
-  parent: DS.belongsTo('page'),
+  parent: DS.belongsTo('page', {inverse: 'children'}),
+  children: DS.hasMany('page', {inverse: 'parent'}),
 
   titleChanged: function() {
     var status = this.get('status');
@@ -127,7 +128,9 @@ App.Page = DS.Model.extend({
 // Router
 App.Router.map(function() {
   this.resource('pages', function() {
-    this.resource('page', { path: ':page_id' });
+    this.resource('parent', { path: ':parent_id' }, function() {
+      this.resource('page', { path: 'page/:page_id' });
+    });
   });
 });
 
@@ -150,21 +153,29 @@ App.PagesRoute = Ember.Route.extend({
   },
   actions: {
     add: function() {
-      this.get('store').createRecord('page', {status: 'd', content: '', summary: ''});
+      var parent = this.controllerFor('pages').get('parent');
+      this.get('store').createRecord('page', {parent: parent, status: 'd', content: '', summary: ''});
     }
   }
 });
 
 App.PagesIndexRoute = Ember.Route.extend({
   model: function() {
-    return this.modelFor('pages');
+    return this.get('store').find('page', { parent: null});
   },
-  renderTemplate: function() {
-    this.render('pages.index', {
-      into: 'application',
-      outlet: 'main',
-      controller: 'pages'
-    });
+  afterModel: function(model, transition) {
+    this.transitionTo('parent', model.objectAt(0));
+  }
+});
+
+App.ParentRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.get('store').find('page', params.parent_id);
+  },
+  setupController: function(controller, parent) {
+    controller.set('model', parent);
+    this.controllerFor('pages').set('parent', parent);
+    this.controllerFor('pages').set('model', parent.get('children'));
   }
 });
 
@@ -188,6 +199,5 @@ App.PageRoute = Ember.Route.extend({
       }
     }
   }
-
 });
 

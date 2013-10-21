@@ -4,10 +4,9 @@ body {
 .navbar .navbar-brand {
   font-weight: @headings-font-weight;
   font-family: @headings-font-family;
-  color: @text-color;
 }
 .navbar {
-  .box-shadow(0 1px 4px rgba(0,0,0,.065));
+  .box-shadow(0 1px 5px rgba(0,0,0,.3));
 }
 .navbar-default .navbar-nav > li > a {
   border-right: 1px solid @navbar-default-bg !important;
@@ -25,6 +24,10 @@ body {
       .box-shadow(inset 0 3px 8px rgba(0,0,0,.125));
     }
   }
+}
+.label {
+  padding: .2em .4em .2em;
+  text-transform: uppercase;
 }
 
 .area-heading {
@@ -87,6 +90,11 @@ body {
       border-right: 12px solid @body-bg;
       border-bottom: 12px solid transparent;
       content: '';
+    }
+    .area-heading {
+      position: static;
+      padding: 0;
+      border: none;
     }
   }
 }

@@ -1,10 +1,14 @@
 <h4 class="area-heading">
-  Pages
-  <a class="pull-right" {{action 'add'}}><i class="icon-plus-sign"></i></a>
+  Page
+  {{#if parent.parent}}
+    {{#linkTo "parent" parent.parent classNames="pull-right"}}
+      <i class="icon-level-up"></i>
+    {{/linkTo}}
+  {{/if}}
 </h4>
 <div class="area-content">
   <div class="list-group">
-    {{#each page in controller}}
+    {{#with parent as page}}
       {{#linkTo "page" page classNames="list-group-item"}}
         <h4 class="list-group-item-heading">
           {{#if page.title}}{{page.title}}{{else}}New Page{{/if}}
@@ -12,6 +16,26 @@
         <p class="list-group-item-text text-muted">
           {{page.statusDisplay}}
           {{#if page.isDirty }}<span class="label label-danger pull-right">Not Saved</span>{{/if}}
+        </p>
+      {{/linkTo}}
+    {{/with}}
+    <div class="list-group-item">
+      <h4 class="area-heading">
+        Subpages ({{parent.children.length}})
+        <a class="pull-right" {{action 'add'}}><i class="icon-plus-sign"></i></a>
+      </h4>
+    </div>
+    {{#each page in controller}}
+      {{#linkTo "page" parent page classNames="list-group-item"}}
+        <h4 class="list-group-item-heading">
+          {{#if page.isDirty }}<small><span class="label label-danger pull-right">Not Saved</span></small>{{/if}}
+          {{#if page.title}}{{page.title}}{{else}}New Page{{/if}}
+        </h4>
+        <p class="list-group-item-text text-muted">
+          {{page.statusDisplay}}
+          {{#linkTo "parent" page tagName="span" classNames="pull-right"}}
+          {{page.children.length}} <i class="icon-level-down"></i>
+          {{/linkTo}}
         </p>
       {{/linkTo}}
     {{/each}}
