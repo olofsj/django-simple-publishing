@@ -1076,9 +1076,10 @@ body{text-rendering:optimizeLegibility}
 .sidebar .list-group-item{margin-right:-1px}.sidebar .list-group-item.active:before{position:absolute;top:50%;right:0;display:block;margin-right:-1px;margin-top:-12px;border-top:12px solid transparent;border-right:12px solid #fff;border-bottom:12px solid transparent;content:''}
 .sidebar .list-group-item .area-heading{position:static;padding:0;border:none}
 .main{position:absolute;top:40px;left:25%;right:0;bottom:0}.main .preview{padding:0 15px}
-.main .main-left,.main .main-right{position:absolute;top:41px;width:50%;bottom:41px}
-.main .main-left{left:0;border-right:1px solid #ddd}
-.main .main-right{right:0}
+.main .main-full,.main .main-left,.main .main-right{position:absolute;top:41px;bottom:41px}
+.main .main-full{left:0;right:0}
+.main .main-left{left:0;width:50%;border-right:1px solid #ddd}
+.main .main-right{right:0;width:50%}
 .main .main-header,.main .main-footer{position:absolute;left:0;right:0;height:41px}
 .main .main-header{top:0;border-bottom:1px solid #ddd}.main .main-header .area-content{top:0;left:60px;padding:3px 0}
 .main .main-footer{bottom:0;border-top:1px solid #ddd;padding:5px 15px}

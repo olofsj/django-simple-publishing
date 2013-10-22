@@ -108,18 +108,23 @@ body {
   .preview {
     padding: 0 15px;
   }
-  .main-left, .main-right {
+  .main-full, .main-left, .main-right {
     position: absolute;
     top: 41px;
-    width: 50%;
     bottom: 41px;
+  }
+  .main-full {
+    left: 0;
+    right: 0;
   }
   .main-left {
     left: 0;
+    width: 50%;
     border-right: 1px solid @list-group-border;
   }
   .main-right {
     right: 0;
+    width: 50%;
   }
   .main-header, .main-footer {
     position: absolute;

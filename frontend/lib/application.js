@@ -136,7 +136,9 @@ App.Page = DS.Model.extend({
 App.Router.map(function() {
   this.resource('pages', function() {
     this.resource('parent', { path: ':parent_id' }, function() {
-      this.resource('page', { path: 'page/:page_id' });
+      this.resource('page', { path: 'page/:page_id' }, function() {
+        this.resource('page.settings', { path: 'settings' });
+      });
     });
   });
 });
@@ -191,18 +193,11 @@ App.ParentRoute = Ember.Route.extend({
 
 App.PageRoute = Ember.Route.extend({
   serialize: function(model) {
-    return { parent_id: model.get('parent.id'), page_id: model.get('id') };
+    return { parent_id: model.get('parent.id') || model.get('id'), page_id: model.get('id') };
   },
   setupController: function(controller, model) {
     controller.set('model', model);
     this.controllerFor('pages').set('currentPage', model);
-  },
-  renderTemplate: function() {
-    this.render('pages.detail', {
-      into: 'application',
-      outlet: 'main',
-      controller: 'page'
-    });
   },
   actions: {
     remove: function() {
@@ -231,6 +226,34 @@ App.PageRoute = Ember.Route.extend({
         });
       }
     }
+  }
+});
+
+App.PageIndexRoute = Ember.Route.extend({
+  renderTemplate: function() {
+    this.render('pages.detail', {
+      into: 'application',
+      outlet: 'main',
+      controller: 'page'
+    });
+  }
+});
+
+App.PageSettingsRoute = Ember.Route.extend({
+  serialize: function(model) {
+    return { parent_id: model.get('parent.id') || model.get('id'), page_id: model.get('id') };
+  },
+  setupController: function(controller, model) {
+    controller.set('model', this.controllerFor('page').get('model'));
+  },
+  renderTemplate: function() {
+    this.render('pages.settings', {
+      into: 'application',
+      outlet: 'main',
+      controller: 'page'
+    });
+  },
+  actions: {
   }
 });
 

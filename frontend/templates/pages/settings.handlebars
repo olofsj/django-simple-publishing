@@ -1,0 +1,34 @@
+{{#with content as page}}
+  <div class="main-header">
+    <h4 class="area-heading">Title</h4>
+    <div class="area-content">
+      {{input value=page.title placeholder="A nice title goes here..." classNames="form-control"}}
+    </div>
+  </div>
+  <div class="main-full">
+    <h4 class="area-heading">
+      Edit settings
+    </h4>
+    <div class="area-content">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Slug</label>
+          <div class="col-sm-10">
+            {{input value=page.slug placeholder="Slug (URL)" classNames="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Publish date</label>
+          <div class="col-sm-10">
+            {{input value=page.publish_date placeholder="Publish date" classNames="form-control"}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="main-footer">
+    <button class="btn btn-danger btn-sm" {{action 'remove'}} {{bindAttr disabled="page.dontDelete"}}>Delete</button>
+    <button class="btn btn-default btn-sm" {{action 'revert'}} {{bindAttr disabled="page.isClean"}}>Revert Changes</button>
+    <button class="btn btn-success btn-sm pull-right" {{action 'save'}} {{bindAttr disabled="page.isClean"}}>Save</button>
+  </div>
+{{/with}}
