@@ -26,8 +26,9 @@ body {
   }
 }
 .label {
-  padding: .2em .4em .2em;
+  padding: .3em .5em .3em;
   text-transform: uppercase;
+  margin-top: 1px;
 }
 
 .area-heading {
@@ -70,11 +71,14 @@ body {
 
   .area-heading {
     border-right: 1px solid @list-group-border;
+    border-bottom: 1px solid @list-group-border;
+    z-index: 5;
   }
   .list-group {
     margin: 0;
     height: 100%;
     border-right: 1px solid @list-group-border;
+    z-index: 3;
   }
   .list-group-item {
     margin-right: -1px;
@@ -96,6 +100,18 @@ body {
       padding: 0;
       border: none;
     }
+    .pull-right {
+      margin-left: 8px;
+    }
+    .clickable {
+      cursor: pointer;
+      &:hover {
+        color: @text-color;
+      }
+    }
+    &.active .clickable:hover {
+      color: #fff;
+    }
   }
 }
 .main {
@@ -104,6 +120,8 @@ body {
   left: 25%;
   right: 0;
   bottom: 0;
+  border-left: 1px solid @list-group-border;
+  margin-left: -1px;
 
   .preview {
     padding: 0 15px;

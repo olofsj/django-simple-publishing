@@ -162,7 +162,7 @@ function program5(depth0,data) {
   options = {hash:{
     'bubbles': (false),
     'tagName': ("span"),
-    'classNames': ("text-muted pull-right")
+    'classNames': ("clickable text-muted list-group-item-text pull-right")
   },inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "page.settings", "page", options) : helperMissing.call(depth0, "linkTo", "page.settings", "page", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
@@ -232,7 +232,7 @@ function program15(depth0,data) {
   options = {hash:{
     'bubbles': (false),
     'tagName': ("span"),
-    'classNames': ("text-muted pull-right")
+    'classNames': ("clickable text-muted list-group-item-text pull-right")
   },inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "page.settings", "page", options) : helperMissing.call(depth0, "linkTo", "page.settings", "page", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
@@ -247,18 +247,18 @@ function program15(depth0,data) {
   stack2 = helpers['if'].call(depth0, "page.title", {hash:{},inverse:self.program(12, program12, data),fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
   data.buffer.push("\n        </h4>\n        <p class=\"list-group-item-text text-muted\">\n          ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.statusDisplay", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n          ");
   hashContexts = {'tagName': depth0,'classNames': depth0};
   hashTypes = {'tagName': "STRING",'classNames': "STRING"};
   options = {hash:{
     'tagName': ("span"),
-    'classNames': ("pull-right")
+    'classNames': ("clickable pull-right")
   },inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0,depth0],types:["STRING","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   stack2 = ((stack1 = helpers.linkTo || depth0.linkTo),stack1 ? stack1.call(depth0, "parent", "page", options) : helperMissing.call(depth0, "linkTo", "parent", "page", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
+  data.buffer.push("\n          ");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "page.statusDisplay", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n        </p>\n      ");
   return buffer;
   }
@@ -287,7 +287,7 @@ function program16(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "parent.children.length", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(")\n        <a class=\"pull-right\" ");
+  data.buffer.push(")\n        <a class=\"clickable pull-right\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "add", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));

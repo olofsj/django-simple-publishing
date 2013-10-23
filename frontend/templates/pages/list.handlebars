@@ -10,7 +10,7 @@
   <div class="list-group">
     {{#with parent as page}}
       {{#linkTo "page" page classNames="list-group-item"}}
-        {{#linkTo "page.settings" page bubbles=false tagName="span" classNames="text-muted pull-right"}}
+        {{#linkTo "page.settings" page bubbles=false tagName="span" classNames="clickable text-muted list-group-item-text pull-right"}}
         <i class="icon-wrench"></i>
         {{/linkTo}}
         <h4 class="list-group-item-heading">
@@ -25,12 +25,12 @@
     <div class="list-group-item">
       <h4 class="area-heading">
         Subpages ({{parent.children.length}})
-        <a class="pull-right" {{action 'add'}}><i class="icon-plus-sign"></i></a>
+        <a class="clickable pull-right" {{action 'add'}}><i class="icon-plus-sign"></i></a>
       </h4>
     </div>
     {{#each page in controller}}
       {{#linkTo "page" page classNames="list-group-item"}}
-        {{#linkTo "page.settings" page bubbles=false tagName="span" classNames="text-muted pull-right"}}
+        {{#linkTo "page.settings" page bubbles=false tagName="span" classNames="clickable text-muted list-group-item-text pull-right"}}
         <i class="icon-wrench"></i>
         {{/linkTo}}
         <h4 class="list-group-item-heading">
@@ -38,10 +38,10 @@
           {{#if page.title}}{{page.title}}{{else}}New Page{{/if}}
         </h4>
         <p class="list-group-item-text text-muted">
-          {{page.statusDisplay}}
-          {{#linkTo "parent" page tagName="span" classNames="pull-right"}}
+          {{#linkTo "parent" page tagName="span" classNames="clickable pull-right"}}
           {{page.children.length}} <i class="icon-level-down"></i>
           {{/linkTo}}
+          {{page.statusDisplay}}
         </p>
       {{/linkTo}}
     {{/each}}
