@@ -316,7 +316,27 @@ function program1(depth0,data) {
     'classNames': ("form-control")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input || depth0.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-full\">\n    <h4 class=\"area-heading\">\n      Edit settings\n    </h4>\n    <div class=\"area-content\">\n      <form class=\"form-horizontal\" role=\"form\">\n        <div class=\"form-group\">\n          <label class=\"col-sm-2 control-label\">Slug</label>\n          <div class=\"col-sm-10\">\n            ");
+  data.buffer.push("\n    </div>\n  </div>\n  <div class=\"main-full\">\n    <h4 class=\"area-heading\">\n      Settings\n    </h4>\n    <div class=\"area-content\">\n      <form class=\"form-horizontal\" role=\"form\">\n        <div class=\"form-group\">\n          <label class=\"col-sm-3 control-label\">Status</label>\n          <div class=\"col-sm-8\">\n            ");
+  hashContexts = {'classNames': depth0,'contentBinding': depth0,'optionValuePath': depth0,'optionLabelPath': depth0,'valueBinding': depth0};
+  hashTypes = {'classNames': "STRING",'contentBinding': "STRING",'optionValuePath': "STRING",'optionLabelPath': "STRING",'valueBinding': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Select", {hash:{
+    'classNames': ("form-control"),
+    'contentBinding': ("App.statusChoices"),
+    'optionValuePath': ("content.value"),
+    'optionLabelPath': ("content.label"),
+    'valueBinding': ("page.status")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group\">\n          <label class=\"col-sm-3 control-label\">Type</label>\n          <div class=\"col-sm-8\">\n            ");
+  hashContexts = {'classNames': depth0,'contentBinding': depth0,'optionValuePath': depth0,'optionLabelPath': depth0,'valueBinding': depth0};
+  hashTypes = {'classNames': "STRING",'contentBinding': "STRING",'optionValuePath': "STRING",'optionLabelPath': "STRING",'valueBinding': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Select", {hash:{
+    'classNames': ("form-control"),
+    'contentBinding': ("App.typeChoices"),
+    'optionValuePath': ("content.value"),
+    'optionLabelPath': ("content.label"),
+    'valueBinding': ("page.type")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group\">\n          <label class=\"col-sm-3 control-label\">Slug</label>\n          <div class=\"col-sm-8\">\n            ");
   hashContexts = {'value': depth0,'placeholder': depth0,'classNames': depth0};
   hashTypes = {'value': "ID",'placeholder': "STRING",'classNames': "STRING"};
   options = {hash:{
@@ -325,15 +345,14 @@ function program1(depth0,data) {
     'classNames': ("form-control")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   data.buffer.push(escapeExpression(((stack1 = helpers.input || depth0.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group\">\n          <label class=\"col-sm-2 control-label\">Publish date</label>\n          <div class=\"col-sm-10\">\n            ");
-  hashContexts = {'value': depth0,'placeholder': depth0,'classNames': depth0};
-  hashTypes = {'value': "ID",'placeholder': "STRING",'classNames': "STRING"};
-  options = {hash:{
-    'value': ("page.publish_date"),
+  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"form-group\">\n          <label class=\"col-sm-3 control-label\">Publish date</label>\n          <div class=\"col-sm-8\">\n            ");
+  hashContexts = {'dateBinding': depth0,'placeholder': depth0,'classNames': depth0};
+  hashTypes = {'dateBinding': "STRING",'placeholder': "STRING",'classNames': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.DateInput", {hash:{
+    'dateBinding': ("page.publish_date"),
     'placeholder': ("Publish date"),
     'classNames': ("form-control")
-  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  data.buffer.push(escapeExpression(((stack1 = helpers.input || depth0.input),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n          </div>\n        </div>\n      </form>\n    </div>\n  </div>\n  <div class=\"main-footer\">\n    <button class=\"btn btn-danger btn-sm\" ");
   hashTypes = {};
   hashContexts = {};

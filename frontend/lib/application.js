@@ -15,7 +15,16 @@ var App = Ember.Application.create({
     $window.on('resize.diaryapp', function() {
       App.set('windowSize', [$window.width(), $window.height()]);
     });
-  }
+  },
+  typeChoices: [
+    {value: 'detail', label: 'Detail view'},
+    {value: 'list', label: 'List view'}
+  ],
+  statusChoices: [
+    {value: 'd', label: 'Draft'},
+    {value: 'p', label: 'Published'},
+    {value: 'w', label: 'Withdrawn'}
+  ]
 });
 
 // Markdown handlebar helper
@@ -78,6 +87,7 @@ App.Page = DS.Model.extend({
   content: DS.attr('string'),
   summary: DS.attr('string'),
   status: DS.attr('string'),
+  type: DS.attr('string'),
   publish_date: DS.attr('isodate'),
   created: DS.attr('isodate'),
   modified: DS.attr('isodate'),
@@ -128,8 +138,7 @@ App.Page = DS.Model.extend({
     } else {
       return new Ember.Handlebars.SafeString('<span class="text-warning">Withdrawn</span>');
     }
-
-  }.property('isPublished')
+  }.property('status', 'publish_date', 'currenttime')
 });
 
 // Router
@@ -164,7 +173,7 @@ App.PagesRoute = Ember.Route.extend({
     add: function() {
       var parent = this.controllerFor('pages').get('parent');
       var page = this.get('store').createRecord('page', {
-        parent: parent, status: 'd', content: '', summary: ''
+        parent: parent, status: 'd', content: '', summary: '', type: 'detail'
       });
       this.transitionTo('page', page);
     }
@@ -254,6 +263,29 @@ App.PageSettingsRoute = Ember.Route.extend({
     });
   },
   actions: {
+    save: function() {
+      var page = this.modelFor('page');
+      if (!!page && page.get('isDirty')) {
+        var route = this;
+        page.save().then(function(result) {
+          route.transitionTo('page.settings', result);
+        });
+      }
+    }
   }
 });
 
+App.DateInput = Ember.TextField.extend({
+  setDate: function() {
+    var value = this.get('value');
+    var m = moment(value);
+    var current = moment(this.get('date')).format("YYYY-MM-DD HH:mm");
+    if (m.isValid() && value != current) {
+      this.set('date', m.toDate());
+    }
+  }.observes('value'),
+
+  value: function() {
+    return moment(this.get('date')).format("YYYY-MM-DD HH:mm");
+  }.property('date')
+});
