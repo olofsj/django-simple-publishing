@@ -62,10 +62,18 @@ App.ApplicationAdapter = DS.DjangoRESTAdapter.extend({
 // ISO date format for serializing dates
 DS.IsodateTransform = DS.Transform.extend({
   deserialize: function(serialized) {
-    return moment(serialized).toDate();
+    if (serialized) {
+      return moment(serialized).toDate();
+    } else {
+      return null;
+    }
   },
   serialize: function(deserialized) {
-    return moment.utc(deserialized).format("YYYY-MM-DDTHH:mm:ssZ");
+    if (deserialized) {
+      return moment.utc(deserialized).format("YYYY-MM-DDTHH:mm:ssZ");
+    } else {
+      return null;
+    }
   }
 });
 App.register('transform:isodate', DS.IsodateTransform);
@@ -185,7 +193,13 @@ App.PagesIndexRoute = Ember.Route.extend({
     return this.get('store').find('page', { parent: null});
   },
   afterModel: function(model, transition) {
-    this.transitionTo('parent', model.objectAt(0));
+    var page = model.objectAt(0);
+    if (!page) {
+      page = this.get('store').createRecord('page', {
+        parent: null, status: 'd', content: '', summary: '', type: 'detail'
+      });
+    }
+    this.transitionTo('parent', page);
   }
 });
 
