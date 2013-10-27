@@ -138,7 +138,9 @@ App.Page = DS.Model.extend({
     if (status == 'd') {
       return new Ember.Handlebars.SafeString('<span class="text-warning">Draft</span>');
     } else if (status == 'p') {
-      if (publish_date < now) {
+      if (!publish_date) {
+        return 'To be published';
+      } else if (publish_date < now) {
         return 'Published ' + moment(publish_date).calendar();
       } else {
         return 'Scheduled for ' + moment(publish_date).calendar();
@@ -293,13 +295,22 @@ App.DateInput = Ember.TextField.extend({
   setDate: function() {
     var value = this.get('value');
     var m = moment(value);
-    var current = moment(this.get('date')).format("YYYY-MM-DD HH:mm");
+    var date = this.get('date');
+    var current = '';
+    if (!!date) {
+      current = moment(date).format("YYYY-MM-DD HH:mm");
+    }
     if (m.isValid() && value != current) {
       this.set('date', m.toDate());
     }
   }.observes('value'),
 
   value: function() {
-    return moment(this.get('date')).format("YYYY-MM-DD HH:mm");
+    var date = this.get('date');
+    if (!!date) {
+      return moment(date).format("YYYY-MM-DD HH:mm");
+    } else {
+      return '';
+    }
   }.property('date')
 });
