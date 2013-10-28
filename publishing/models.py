@@ -21,12 +21,12 @@ PAGE_TYPES = (
     {
       'name': 'detail',
       'verbose_name': _('detail view'),
-      'template': 'simple_publishing/detail.html',
+      'template': 'publishing/detail.html',
     },
     {
       'name': 'list',
       'verbose_name': _('list view'),
-      'template': 'simple_publishing/list.html',
+      'template': 'publishing/list.html',
     },
 )
 

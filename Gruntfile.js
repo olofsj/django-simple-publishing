@@ -58,7 +58,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: editorFiles,
-        dest: 'simple_publishing/static/publishing/js/editor.js'
+        dest: 'publishing/static/publishing/js/editor.js'
       }
     },
     uglify: {
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: editorFiles,
-        dest: 'simple_publishing/static/publishing/js/editor.min.js'
+        dest: 'publishing/static/publishing/js/editor.min.js'
       }
     },
     less: {
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          "simple_publishing/static/publishing/css/publishing.css": "frontend/less/bootstrap.less"
+          "publishing/static/publishing/css/publishing.css": "frontend/less/bootstrap.less"
         }
       }
     }

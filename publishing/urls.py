@@ -16,6 +16,6 @@ router.register(r'pages', PageViewSet)
 urlpatterns = patterns('',
     url(r'^publishing/api/', include(router.urls)),
     url(r'^publishing/$', login_required(TemplateView.as_view(
-      template_name="simple_publishing/editor.html"))),
+      template_name="publishing/editor.html"))),
     url(r'^(?P<url>[-\w\d\/]*)', PageView.as_view(), name='page_view'),
 )

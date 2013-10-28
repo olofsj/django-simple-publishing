@@ -45,7 +45,7 @@ Add to `installed_apps` in `settings.py`:
 
     installed_apps = [
         ...
-        'simple_publishing',
+        'publishing',
     ]
 
 If you want to use it to serve your site root add the following to your url config in `urls.py`:
@@ -54,7 +54,7 @@ If you want to use it to serve your site root add the following to your url conf
         ...
 
         # Simple publishing (should be last)
-        url(r'^', include('simple_publishing.urls')),
+        url(r'^', include('publishing.urls')),
     )
 
 If you only want to use it to only serve eg. /blog/ add the following to your url config in `urls.py`:
@@ -63,7 +63,7 @@ If you only want to use it to only serve eg. /blog/ add the following to your ur
         ...
 
         # Simple publishing
-        url(r'^blog/', include('simple_publishing.urls')),
+        url(r'^blog/', include('publishing.urls')),
     )
 
 Run `python manage.py migrate` and you should be done!

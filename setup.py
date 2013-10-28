@@ -16,7 +16,7 @@ setup(
     url="https://github.com/olofsj/django-simple-publishing",
     license="MIT",
     packages=[
-        "simple_publishing",
+        "publishing",
     ],
     long_description=read("README.md"),
     classifiers=[
