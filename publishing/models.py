@@ -3,9 +3,10 @@ import markdown
 
 
 from django.db import models, transaction, IntegrityError
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
 
 
 from managers import PageManager
@@ -17,7 +18,7 @@ STATUS_CHOICES = (
   ('w', _('Withdrawn')),
 )
 
-PAGE_TYPES = (
+PAGE_TYPES_DEFAULT = (
     {
       'name': 'detail',
       'verbose_name': _('detail view'),
@@ -29,6 +30,7 @@ PAGE_TYPES = (
       'template': 'publishing/list.html',
     },
 )
+PAGE_TYPES = getattr(settings, 'PUBLISHING_PAGE_TYPES', PAGE_TYPES_DEFAULT)
 
 PAGE_TYPE_CHOICES = ((pt['name'], pt['verbose_name']) for pt in PAGE_TYPES)
 

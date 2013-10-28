@@ -50021,15 +50021,8 @@ var App = Ember.Application.create({
       App.set('windowSize', [$window.width(), $window.height()]);
     });
   },
-  typeChoices: [
-    {value: 'detail', label: 'Detail view'},
-    {value: 'list', label: 'List view'}
-  ],
-  statusChoices: [
-    {value: 'd', label: 'Draft'},
-    {value: 'p', label: 'Published'},
-    {value: 'w', label: 'Withdrawn'}
-  ]
+  typeChoices: PUBLISHING_PAGE_TYPE_CHOICES,
+  statusChoices: PUBLISHING_STATUS_CHOICES
 });
 
 // Markdown handlebar helper

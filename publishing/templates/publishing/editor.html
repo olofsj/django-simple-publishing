@@ -12,6 +12,21 @@
     <!-- Bootstrap -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+    <script>
+      {% load publishing_tags %}
+      {% get_page_type_choices as page_type_choices %}
+      var PUBLISHING_PAGE_TYPE_CHOICES = [
+      {% for value, label in page_type_choices %}
+        {value: '{{ value|escapejs }}', label: '{{ label|escapejs }}'}{% if not forloop.last %},{% endif %}
+      {% endfor %}
+      ];
+      {% get_status_choices as status_choices %}
+      var PUBLISHING_STATUS_CHOICES = [
+      {% for value, label in status_choices %}
+        {value: '{{ value|escapejs }}', label: '{{ label|escapejs }}'}{% if not forloop.last %},{% endif %}
+      {% endfor %}
+      ];
+    </script>
     <script src="{{ STATIC_URL }}publishing/js/editor.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
