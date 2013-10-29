@@ -24,7 +24,7 @@ class PageView(TemplateView):
             raise Http404
 
         # Fetch context data
-        children = self.page.children.all().published()
+        children = self.page.children.all().published().order_by('-publish_date')
         paginator = Paginator(children, PER_PAGE)
         page_number = kwargs.get('page', 1)
         try:

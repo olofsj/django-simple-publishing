@@ -50313,6 +50313,11 @@ App.DateInput = Ember.TextField.extend({
   }.property('date')
 });
 
+App.PagesController = Ember.ArrayController.extend({
+  sortProperties: ['publish_date'],
+  sortAscending: false
+});
+
 Ember.TEMPLATES['application'] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};

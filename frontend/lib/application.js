@@ -307,3 +307,8 @@ App.DateInput = Ember.TextField.extend({
     }
   }.property('date')
 });
+
+App.PagesController = Ember.ArrayController.extend({
+  sortProperties: ['publish_date'],
+  sortAscending: false
+});
