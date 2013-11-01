@@ -60,6 +60,9 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return self.url
+
     def get_template_name(self):
         for pt in PAGE_TYPES:
             if pt['name'] == self.type:
