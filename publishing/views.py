@@ -20,7 +20,7 @@ class PageView(TemplateView):
             raise Http404
 
         # Preview for page author
-        if not self.page.is_published() and not self.page.author == request.user:
+        if not self.page.is_published() and not request.user.has_perm('publishing.change_page'):
             raise Http404
 
         # Fetch context data
