@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.views.generic import TemplateView
 
 
-from models import Page
+from .models import Page
 
 
 PER_PAGE = 10
@@ -29,7 +29,7 @@ class PageView(TemplateView):
         page_number = kwargs.get('page', 1)
         try:
             list_page = paginator.page(page_number)
-        except PageNotAnInteger, EmptyPage:
+        except (PageNotAnInteger, EmptyPage) as e:
             return HttpResponseRedirect(self.page.url)
 
         context = {

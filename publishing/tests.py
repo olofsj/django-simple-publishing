@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.utils.timezone import now
 
 
-from models import Page
+from .models import Page
 
 
 class PageSaveTestCase(TestCase):

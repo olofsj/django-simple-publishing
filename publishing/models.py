@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 import markdown
 
@@ -5,11 +6,12 @@ import markdown
 from django.db import models, transaction, IntegrityError
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 from django.utils.translation import ugettext as _
 
 
-from managers import PageManager
+from .managers import PageManager
 
 
 STATUS_CHOICES = (
@@ -35,6 +37,7 @@ PAGE_TYPES = getattr(settings, 'PUBLISHING_PAGE_TYPES', PAGE_TYPES_DEFAULT)
 PAGE_TYPE_CHOICES = ((pt['name'], pt['verbose_name']) for pt in PAGE_TYPES)
 
 
+@python_2_unicode_compatible
 class Page(models.Model):
     parent = models.ForeignKey('self', related_name='children',
         verbose_name=_('parent'), null=True, blank=True)
@@ -57,7 +60,7 @@ class Page(models.Model):
         verbose_name = _('page')
         verbose_name_plural = _('pages')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):

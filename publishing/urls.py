@@ -6,8 +6,8 @@ from django.views.generic import TemplateView, RedirectView
 from rest_framework import routers
 
 
-from views import PageView
-from api import PageViewSet
+from .views import PageView
+from .api import PageViewSet
 
 
 router = routers.DefaultRouter()
