@@ -49,7 +49,7 @@ App.slugify = function(str) {
 
 // Ember-data store using the Django Tastypie adapter
 App.ApplicationAdapter = DS.DjangoRESTAdapter.extend({
-  namespace: 'publishing/api'
+  namespace: PUBLISHING_API_URL.replace(/(^\/|\/$)/g, '')
 });
 
 // ISO date format for serializing dates
