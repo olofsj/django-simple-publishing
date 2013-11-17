@@ -96,6 +96,10 @@ App.Page = DS.Model.extend({
   parent: DS.belongsTo('page', {inverse: 'children'}),
   children: DS.hasMany('page', {inverse: 'parent'}),
 
+  absoluteUrl: function() {
+    return PUBLISHING_ROOT.replace(/\/$/, '') + this.get('url');
+  }.property('url'),
+
   titleChanged: function() {
     var status = this.get('status');
     var id = this.get('id');

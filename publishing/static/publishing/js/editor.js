@@ -50101,6 +50101,10 @@ App.Page = DS.Model.extend({
   parent: DS.belongsTo('page', {inverse: 'children'}),
   children: DS.hasMany('page', {inverse: 'parent'}),
 
+  absoluteUrl: function() {
+    return PUBLISHING_ROOT.replace(/\/$/, '') + this.get('url');
+  }.property('url'),
+
   titleChanged: function() {
     var status = this.get('status');
     var id = this.get('id');
@@ -50413,7 +50417,7 @@ function program2(depth0,data) {
   hashContexts = {'href': depth0};
   hashTypes = {'href': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
-    'href': ("page.url")
+    'href': ("page.absoluteUrl")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push(" target=\"_blank\" class=\"pull-right\"><i class=\"icon-external-link-sign\"></i></a>\n      ");
   return buffer;

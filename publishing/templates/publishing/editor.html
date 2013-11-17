@@ -13,6 +13,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
     <script>
+      var PUBLISHING_ROOT = '{% url "page_view" "" %}';
       var PUBLISHING_API_URL = '{% url "publishing_editor" %}api/';
       {% load publishing_tags %}
       {% get_page_type_choices as page_type_choices %}
