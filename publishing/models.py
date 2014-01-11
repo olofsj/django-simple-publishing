@@ -5,7 +5,13 @@ import markdown
 
 from django.db import models, transaction, IntegrityError
 from django.conf import settings
-from django.contrib.auth.models import User
+# support for custom User models in Django 1.5+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:  # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 from django.utils.translation import ugettext as _
